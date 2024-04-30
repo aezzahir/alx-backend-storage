@@ -1,2 +1,2 @@
 // Updates 
-db.school.updateOne( { name="Holberton school" }, /* Filter*/ { $set: { address: "972 Mission street" } } /* Update*/ )
+db.school.update( { name: "Holberton school" }, /* Filter*/ { $set: { address: "972 Mission street" } })
