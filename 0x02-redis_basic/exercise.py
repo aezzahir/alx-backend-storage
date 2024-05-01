@@ -23,3 +23,13 @@ class Cache(object):
         key = str(uuid4())
         self._redis.set(key, data)
         return key
+
+    def get(self, key: str,
+            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+        """
+            Get data from the Cache
+        """
+        value = self._redis.get(key)
+        if fn:
+            value = fn(value)
+        return (value)
