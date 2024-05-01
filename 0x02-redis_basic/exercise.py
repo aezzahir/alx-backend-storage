@@ -5,6 +5,22 @@ This Module handles cache ....
 from typing import Callable, Optional, Union
 import redis
 from uuid import uuid4
+from functools import wraps
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+        Count How many times a method was called.
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        '''
+            Wrapper function.
+        '''
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache(object):
