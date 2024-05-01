@@ -2,20 +2,24 @@
 """
 This Module handles cache ....
 """
+from typing import Callable, Optional, Union
 import redis
-import uuid
+from uuid import uuid4
 
 
 class Cache(object):
 
     def __init__(self):
+        '''
+        Initialize the cache
+        '''
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """
-            store method
+            Store data in the cache
         """
-        key = str(uuid.uuid4())
+        key = str(uuid4())
         self._redis.set(key, data)
         return key
